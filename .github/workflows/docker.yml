@@ -38,23 +38,16 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: false
+          push: true
           tags: ghcr.io/jakubgoreckii/lab11-multiarch-ci:latest
           platforms: linux/amd64,linux/arm64
-          outputs: type=oci,dest=image.tar
 
       - name: Scan image with Trivy
         uses: aquasecurity/trivy-action@master
         with:
-          scan-type: image
-          image-ref: ""
-          input: image.tar
-          format: table
-          severity: CRITICAL,HIGH
-          exit-code: 1
+            image-ref: ghcr.io/jakubgoreckii/lab11-multiarch-ci:latest
+            format: table
+            severity: CRITICAL,HIGH
+            exit-code: 1
 
-      - name: Push image to GHCR if no CVEs
-        if: success()
-        run: |
-          docker load -i image.tar
-          docker push ghcr.io/jakubgoreckii/lab11-multiarch-ci:latest
+      
