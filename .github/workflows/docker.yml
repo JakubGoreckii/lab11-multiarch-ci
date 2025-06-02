@@ -41,8 +41,8 @@ jobs:
           push: false
           tags: ghcr.io/${{ github.repository }}:latest
           platforms: linux/amd64,linux/arm64
-          cache-from: type=registry,ref=yourusername/cache:lab11
-          cache-to: type=registry,ref=yourusername/cache:lab11,mode=max
+          cache-from: type=registry,ref=goras1234/cache:lab11
+          cache-to: type=registry,ref=goras1234/cache:lab11,mode=max
           outputs: type=docker,dest=image.tar
 
       - name: Scan image with Trivy
@@ -57,5 +57,4 @@ jobs:
         if: success()
         run: |
           docker load -i image.tar
-          docker tag ghcr.io/${{ github.repository }}:latest ghcr.io/${{ github.repository }}:latest
           docker push ghcr.io/${{ github.repository }}:latest
