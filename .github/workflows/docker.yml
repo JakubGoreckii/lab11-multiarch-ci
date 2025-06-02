@@ -41,8 +41,6 @@ jobs:
           push: false
           tags: ghcr.io/jakubgoreckii/lab11-multiarch-ci:latest
           platforms: linux/amd64,linux/arm64
-          cache-from: type=registry,ref=goras1234/cache:lab11
-          cache-to: type=registry,ref=goras1234/cache:lab11,mode=max
           outputs: type=oci,dest=image.tar
 
       - name: Scan image with Trivy
